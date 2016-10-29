@@ -1,7 +1,7 @@
 {
 	"autoload" : {
-		"psr-0" : {
-			"Cielo" : "src"
+		"psr-4" : {
+			"Cielo\\" : "./src/Cielo"
 		}
 	},
 	"name" : "Cielo/API-3.0 PHP",
