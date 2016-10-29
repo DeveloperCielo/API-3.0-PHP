@@ -27,7 +27,7 @@ Para criar um pagamento simples com cartão de crédito com o SDK, basta fazer:
 ```php
 // ...
 // Configure o ambiente
-$environment = $environment = Environment::sandbox();
+$environment = Environment::sandbox();
 
 // Configure seu merchant
 $merchant = new Merchant('MERCHANT ID', 'MERCHANT KEY');
