@@ -5,7 +5,7 @@
 		}
 	},
 	"name" : "adrianobnu/cielo",
-	"description" : "Integração com a API 3.0 da Cielo",
+	"description" : "Integração com a API PHP 3.0 da Cielo",
 	"license" : "MIT",
 	"type" : "library",
 	"require" : {
