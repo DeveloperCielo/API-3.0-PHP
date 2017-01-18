@@ -153,10 +153,11 @@ class Payment implements \JsonSerializable
         $creditCard = new CreditCard();
         $creditCard->setSecurityCode($securityCode);
         $creditCard->setBrand($brand);
-        if ($this->getType() == self::PAYMENTTYPE_CREDITCARD) {
-            $this->setCreditCard($creditCard);
+        if ($this->getType() == self::PAYMENTTYPE_DEBITCARD) {
+            $this->setDebitCard($creditCard);            
         } else {
-            $this->setDebitCard($creditCard);
+            $this->setType(self::PAYMENTTYPE_CREDITCARD);
+            $this->setCreditCard($creditCard);
         }
         return $creditCard;
     }
