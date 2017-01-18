@@ -43,8 +43,7 @@ $payment = $sale->payment(15700);
 
 // Crie uma instância de Credit Card utilizando os dados de teste
 // esses dados estão disponíveis no manual de integração
-$payment->setType(Payment::PAYMENTTYPE_CREDITCARD)
-        ->creditCard("123", "Visa")
+$payment->creditCard("123", "Visa")
         ->setExpirationDate("12/2018")
         ->setCardNumber("0000000000000001")
         ->setHolder("Fulano de Tal");
