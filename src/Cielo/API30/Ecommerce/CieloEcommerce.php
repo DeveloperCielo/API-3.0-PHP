@@ -5,6 +5,7 @@ use Cielo\API30\Merchant;
 use Cielo\API30\Ecommerce\Request\CreateSaleRequest;
 use Cielo\API30\Ecommerce\Request\QuerySaleRequest;
 use Cielo\API30\Ecommerce\Request\UpdateSaleRequest;
+use Cielo\API30\Ecommerce\Request\QueryRecurrentPaymentRequest;
 
 /**
  * The Cielo Ecommerce SDK front-end;
@@ -33,7 +34,7 @@ class CieloEcommerce
         if ($environment == null) {
             $environment = Environment::production();
         }
-        
+
         $this->merchant = $merchant;
         $this->environment = $environment;
     }
@@ -53,7 +54,7 @@ class CieloEcommerce
     public function createSale(Sale $sale)
     {
         $createSaleRequest = new CreateSaleRequest($this->merchant, $this->environment);
-        
+
         return $createSaleRequest->execute($sale);
     }
 
@@ -71,8 +72,26 @@ class CieloEcommerce
     public function getSale($paymentId)
     {
         $querySaleRequest = new QuerySaleRequest($this->merchant, $this->environment);
-        
+
         return $querySaleRequest->execute($paymentId);
+    }
+
+    /**
+     * Query a RecurrentPayment on Cielo by RecurrentPaymentId
+     *
+     * @param string $recurrentPaymentId
+     *            The RecurrentPaymentId to be queried
+     * @return \Cielo\API30\Ecommerce\RecurrentPayment The RecurrentPayment with authorization, tid, etc. returned by Cielo.
+     * @throws CieloRequestException if anything gets wrong.
+     * @see <a href=
+     *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
+     *      Codes</a>
+     */
+    public function getRecurrentPayment($recurrentPaymentId)
+    {
+        $queryRecurrentPaymentRequest = new queryRecurrentPaymentRequest($this->merchant, $this->environment);
+
+        return $queryRecurrentPaymentRequest->execute($recurrentPaymentId);
     }
 
     /**
@@ -91,9 +110,9 @@ class CieloEcommerce
     public function cancelSale($paymentId, $amount = null)
     {
         $updateSaleRequest = new UpdateSaleRequest('void', $this->merchant, $this->environment);
-        
+
         $updateSaleRequest->setAmount($amount);
-        
+
         return $updateSaleRequest->execute($paymentId);
     }
 
@@ -109,7 +128,7 @@ class CieloEcommerce
      *            Amount of the authorization should be destined for the service
      *            charge
      * @return \Cielo\API30\Ecommerce\Payment The captured Payment.
-     *        
+     *
      * @throws CieloRequestException if anything gets wrong.
      * @see <a href=
      *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
@@ -118,10 +137,10 @@ class CieloEcommerce
     public function captureSale($paymentId, $amount = null, $serviceTaxAmount = null)
     {
         $updateSaleRequest = new UpdateSaleRequest('capture', $this->merchant, $this->environment);
-        
+
         $updateSaleRequest->setAmount($amount);
         $updateSaleRequest->setServiceTaxAmount($serviceTaxAmount);
-        
+
         return $updateSaleRequest->execute($paymentId);
     }
 }
