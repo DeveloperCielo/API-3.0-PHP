@@ -89,6 +89,10 @@ class Payment implements \JsonSerializable
     private $digitableLine;
 
     private $address;
+    
+    private $deliveryAddress;
+
+    private $fraudAnalysis;
 
     public function __construct($amount = 0, $installments = 1)
     {
@@ -126,12 +130,15 @@ class Payment implements \JsonSerializable
             $this->debitCard->populate($data->DebitCard);
         }
         
+        
         $this->expirationDate  =  isset($data->ExpirationDate)?$data->ExpirationDate: null;
         $this->url             =  isset($data->Url)?$data->Url: null;
         $this->boletoNumber    =  isset($data->BoletoNumber)? $data->BoletoNumber: null;
         $this->barCodeNumber   =  isset($data->BarCodeNumber)?$data->BarCodeNumber: null;
         $this->digitableLine   =  isset($data->DigitableLine)?$data->DigitableLine: null;
-        $this->address         =  isset($data->Address)?$data->Address: null;
+        $this->fraudAnalysis   =  isset($data->FraudAnalysis)? (new FraudAnalysis())->populate($data->FraudAnalysis): null;
+        $this->address         =  isset($data->Address)? (new Address())->populate($data->Address): null;
+        $this->deliveryAddress =  isset($data->DeliveryAddress)?(new Address())->populate($data->DeliveryAddress): null;
 
         $this->authenticationUrl = isset($data->AuthenticationUrl)? $data->AuthenticationUrl: null;
         $this->tid = isset($data->Tid)? $data->Tid: null;
@@ -169,6 +176,18 @@ class Payment implements \JsonSerializable
         return $card;
     }
 
+    /**
+    * @param $Sequence FraudAnalysis::SEQUENCE_ANALYSE_FIRST || FraudAnalysis::SEQUENCE_AUTHORIZE_FIRST
+    * @param $SequenceCriteria FraudAnalysis::CRITERIAL_AlWAYS || FraudAnalysis::CRITERIAL_ON_SUCCESS 
+    *
+    * @return FraudAnalysis
+    */
+    public function fraudAnalysis(string $sequence, string $sequenceCriteria){
+        $fa = new FraudAnalysis();
+        $this->fraudAnalysis = $fa->setSequence($sequence)->setSequenceCriteria($sequenceCriteria);
+        return $this->fraudAnalysis;
+    }
+
     public function creditCard($securityCode, $brand)
     {
         $card = $this->newCard($securityCode, $brand);
@@ -196,6 +215,14 @@ class Payment implements \JsonSerializable
         $this->setRecurrentPayment($recurrentPayment);
 
         return $recurrentPayment;
+    }
+    
+    public function setFraudAnalysis($fraudAnalysis){
+        $this->fraudAnalysis = $fraudAnalysis;
+        return $this;
+    }
+    public function getFraudAnalysis(){
+       return $this->fraudAnalysis;
     }
 
     public function getServiceTaxAmount()
@@ -597,6 +624,17 @@ class Payment implements \JsonSerializable
     public function setAddress($address)
     {
         $this->address = $address;
+        return $this;
+    }
+
+    public function getDeliveryAddress()
+    {
+        return $this->eliveryAddress;
+    }
+
+    public function setDeliveryAddress(Address $deliveryAddress)
+    {
+        $this->deliveryAddress = $deliveryAddress;
         return $this;
     }
 }
