@@ -18,6 +18,8 @@ class Address implements CieloSerializable
 
     private $country;
 
+    private $district;
+
     public function jsonSerialize()
     {
         return get_object_vars($this);
@@ -32,6 +34,7 @@ class Address implements CieloSerializable
         $this->city = isset($data->City)? $data->City: null;
         $this->state = isset($data->State)? $data->State: null;
         $this->country = isset($data->Country)? $data->Country: null;
+        $this->district = isset($data->District)? $data->District: null;
     }
 
     public function getStreet()
@@ -108,6 +111,17 @@ class Address implements CieloSerializable
     public function setCountry($country)
     {
         $this->country = $country;
+        return $this;
+    }
+
+    public function getDistrict()
+    {
+        return $this->district;
+    }
+
+    public function setDistrict($district)
+    {
+        $this->district = $district;
         return $this;
     }
 }
