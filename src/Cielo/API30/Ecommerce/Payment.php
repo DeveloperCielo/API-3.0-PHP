@@ -90,6 +90,14 @@ class Payment implements \JsonSerializable
 
     private $address;
 
+    private $assignor;
+
+    private $demonstrative;
+
+    private $identification;
+
+    private $instructions;
+
     public function __construct($amount = 0, $installments = 1)
     {
         $this->setAmount($amount);
@@ -125,7 +133,7 @@ class Payment implements \JsonSerializable
             $this->debitCard = new CreditCard();
             $this->debitCard->populate($data->DebitCard);
         }
-        
+
         $this->expirationDate  =  isset($data->ExpirationDate)?$data->ExpirationDate: null;
         $this->url             =  isset($data->Url)?$data->Url: null;
         $this->boletoNumber    =  isset($data->BoletoNumber)? $data->BoletoNumber: null;
@@ -150,6 +158,11 @@ class Payment implements \JsonSerializable
         $this->status = isset($data->Status)? $data->Status: null;
 
         $this->links = isset($data->Links)? $data->Links: [];
+
+        $this->assignor = isset($data->Assignor)? $data->Assignor: null;
+        $this->demonstrative = isset($data->Demonstrative)? $data->Demonstrative: null;
+        $this->identification = isset($data->Identification)? $data->Identification: null;
+        $this->instructions = isset($data->Instructions)? $data->Instructions: null;
     }
 
     public static function fromJson($json)
@@ -554,13 +567,13 @@ class Payment implements \JsonSerializable
     {
         $this->number = $number;
         return $this;
-    }    
-            
+    }
+
     public function getBoletoNumber()
     {
         return $this->boletoNumber;
     }
-    
+
     public function setBoletoNumber($boletoNumber)
     {
         $this->boletoNumber = $boletoNumber;
@@ -597,6 +610,50 @@ class Payment implements \JsonSerializable
     public function setAddress($address)
     {
         $this->address = $address;
+        return $this;
+    }
+
+    public function getAssignor()
+    {
+        return $this->assignor;
+    }
+
+    public function setAssignor($assignor)
+    {
+        $this->assignor = $assignor;
+        return $this;
+    }
+
+    public function getDemonstrative()
+    {
+        return $this->demonstrative;
+    }
+
+    public function setDemonstrative($demonstrative)
+    {
+        $this->demonstrative = $demonstrative;
+        return $this;
+    }
+
+    public function getIdentification()
+    {
+        return $this->identification;
+    }
+
+    public function setIdentification($identification)
+    {
+        $this->identification = $identification;
+        return $this;
+    }
+
+    public function getInstructions()
+    {
+        return $this->instructions;
+    }
+
+    public function setInstructions($instructions)
+    {
+        $this->instructions = $instructions;
         return $this;
     }
 }
