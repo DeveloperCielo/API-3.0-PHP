@@ -235,6 +235,79 @@ try {
 // ...
 ```
 
+### Criando transações com boleto
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+use Cielo\API30\Merchant;
+
+use Cielo\API30\Ecommerce\Environment;
+use Cielo\API30\Ecommerce\Sale;
+use Cielo\API30\Ecommerce\CieloEcommerce;
+use Cielo\API30\Ecommerce\Payment;
+
+use Cielo\API30\Ecommerce\Request\CieloRequestException;
+
+// ...
+// Configure o ambiente
+$environment = $environment = Environment::sandbox();
+
+// Configure seu merchant
+$merchant = new Merchant('MERCHANT ID', 'MERCHANT KEY');
+
+// Crie uma instância de Sale informando o ID do pagamento
+$sale = new Sale('123');
+
+// Crie uma instância de Customer informando o nome do cliente, documento (cpf/cnpj) e endereço
+$customer = $sale->customer('Fulano de Tal')
+                ->setIdentity('79999338801')
+                ->address()
+                ->setStreet('Rua Teste')
+                ->setNumber('123')
+                ->setDistrict('Bairro Teste')
+                ->setZipCode('01156050')
+                ->setCity('Sao Paulo')
+                ->setState('SP')
+                ->setCountry('BRA');
+
+// Crie uma instância de Payment informando o valor do pagamento
+$payment = $sale->payment(15700);
+
+// Defina a URL de retorno para que o cliente possa voltar para a loja
+// após a autenticação do cartão
+$payment->setReturnUrl('https://localhost/test');
+
+//Adicione o tipo de pagamento 'Boleto' e as informações adicionais
+$payment->setType(Payment::PAYMENTTYPE_BOLETO)
+    ->setBoletoNumber('123')
+    ->setAssignor('Empresa Teste')
+    ->setDemonstrative('Desmonstrative Teste')
+    ->setIdentification('11884926754')
+    ->setInstructions('Aceitar somente até a data de vencimento, após essa data juros de 1% dia.')
+    ->setExpirationDate('25/5/2017');
+
+// Crie o pagamento na Cielo
+try {
+    // Configure o SDK com seu merchant e o ambiente apropriado para criar a venda
+    $sale = (new CieloEcommerce($merchant, $environment))->createSale($sale);
+
+    // Com a venda criada na Cielo, já temos o ID do pagamento, TID e demais
+    // dados retornados pela Cielo
+    $paymentId = $sale->getPayment()->getPaymentId();
+
+    // Utilize a URL de autenticação para redirecionar o cliente ao ambiente
+    // de autenticação do emissor do cartão
+    $authenticationUrl = $sale->getPayment()->getAuthenticationUrl();
+} catch (CieloRequestException $e) {
+    // Em caso de erros de integração, podemos tratar o erro aqui.
+    // os códigos de erro estão todos disponíveis no manual de integração.
+    $error = $e->getCieloError();
+}
+// ...
+```
+
 ## Manual
 
 Para mais informações sobre a integração com a API 3.0 da Cielo, vide o manual em: [Integração API 3.0](https://developercielo.github.io/Webservice-3.0/)
