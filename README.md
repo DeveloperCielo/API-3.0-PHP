@@ -120,6 +120,7 @@ use Cielo\API30\Ecommerce\Environment;
 use Cielo\API30\Ecommerce\Sale;
 use Cielo\API30\Ecommerce\CieloEcommerce;
 use Cielo\API30\Ecommerce\Payment;
+use Cielo\API30\Ecommerce\RecurrentPayment;
 
 use Cielo\API30\Ecommerce\Request\CieloRequestException;
 // ...
@@ -136,6 +137,7 @@ $sale = new Sale('123');
 $customer = $sale->customer('Fulano de Tal');
 
 // Configure a recorrência
+$recurrent = new RecurrentPayment();
 $recurrent = $recurrent->setInterval(RecurrentPayment::INTERVAL_MONTHLY)
                         ->setAuthorizeNow(true);
 
