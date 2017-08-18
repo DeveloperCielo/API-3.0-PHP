@@ -28,7 +28,7 @@ class UpdateRecurrentPaymentRequest extends AbstractRequest
 
     public function execute($recurrentPaymentId)
     {
-        $url = $this->environment->getApiQueryURL() . '1/RecurrentPayment/' . $recurrentPaymentId . '/' . $this->type;
+        $url = $this->environment->getApiURL() . '1/RecurrentPayment/' . $recurrentPaymentId . '/' . $this->type;
 
         return $this->sendRequest('PUT', $url, $this->param);
     }
