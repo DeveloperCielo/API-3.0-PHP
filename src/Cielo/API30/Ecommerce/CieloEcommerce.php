@@ -1,6 +1,7 @@
 <?php
 namespace Cielo\API30\Ecommerce;
 
+use Cielo\API30\Ecommerce\Request\UpdateRecurrentPaymentRequest;
 use Cielo\API30\Merchant;
 use Cielo\API30\Ecommerce\Request\CreateSaleRequest;
 use Cielo\API30\Ecommerce\Request\QuerySaleRequest;
@@ -92,6 +93,24 @@ class CieloEcommerce
         $queryRecurrentPaymentRequest = new queryRecurrentPaymentRequest($this->merchant, $this->environment);
 
         return $queryRecurrentPaymentRequest->execute($recurrentPaymentId);
+    }
+
+    /**
+     * Deactivate a RecurrentPayment on Cielo by RecurrentPaymentId
+     *
+     * @param string $recurrentPaymentId
+     *            The RecurrentPaymentId to be queried
+     *
+     * @return \Cielo\API30\Ecommerce\RecurrentPayment The RecurrentPayment with authorization, tid, etc. returned by Cielo.
+     * @throws CieloRequestException if anything gets wrong.
+     * @see <a href=
+     *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
+     *      Codes</a>
+     */
+    public function deactivateRecurrentPayment( $recurrentPaymentId ) {
+        $deactivateRecurrentPaymentRequest = new UpdateRecurrentPaymentRequest( 'Deactivate', $this->merchant, $this->environment );
+
+        return $deactivateRecurrentPaymentRequest->execute( $recurrentPaymentId );
     }
 
     /**
