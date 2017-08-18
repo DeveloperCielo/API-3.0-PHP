@@ -33,16 +33,10 @@ class UpdateRecurrentPaymentRequest extends AbstractRequest
         return $this->sendRequest('PUT', $url, $this->param);
     }
 
-    /**
-     * @return null
-     */
     public function getParam() {
         return $this->param;
     }
 
-    /**
-     * @param null $param
-     */
     public function setParam( $param ) {
         $this->param = $param;
     }
