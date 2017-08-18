@@ -39,6 +39,7 @@ class UpdateRecurrentPaymentRequest extends AbstractRequest
 
     public function setParam( $param ) {
         $this->param = $param;
+        return $this->param;
     }
 
     protected function unserialize($json)
