@@ -101,6 +101,8 @@ class Payment implements \JsonSerializable
     private $identification;
 
     private $instructions;
+    
+    private $fraudAnalysis;
 
     public function __construct($amount = 0, $installments = 1)
     {
@@ -171,6 +173,11 @@ class Payment implements \JsonSerializable
         $this->demonstrative = isset($data->Demonstrative)? $data->Demonstrative: null;
         $this->identification = isset($data->Identification)? $data->Identification: null;
         $this->instructions = isset($data->Instructions)? $data->Instructions: null;
+        
+        if (isset($data->FraudAnalysis)) {
+            $this->fraudAnalysis = new FraudAnalysis();
+            $this->fraudAnalysis->populate($data->FraudAnalysis);
+        }
     }
 
     public static function fromJson($json)
@@ -688,6 +695,17 @@ class Payment implements \JsonSerializable
     {
         $this->instructions = $instructions;
 
+        return $this;
+    }
+    
+    function getFraudAnalysis()
+    {
+        return $this->fraudAnalysis;
+    }
+
+    function setFraudAnalysis(FraudAnalysis $fraudAnalysis)
+    {
+        $this->fraudAnalysis = $fraudAnalysis;
         return $this;
     }
 }

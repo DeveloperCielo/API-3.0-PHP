@@ -9,7 +9,7 @@ class Sale implements \JsonSerializable
     private $customer;
 
     private $payment;
-
+    
     public function __construct($merchantOrderId = null)
     {
         $this->setMerchantOrderId($merchantOrderId);
@@ -99,4 +99,5 @@ class Sale implements \JsonSerializable
         $this->payment = $payment;
         return $this;
     }
+
 }

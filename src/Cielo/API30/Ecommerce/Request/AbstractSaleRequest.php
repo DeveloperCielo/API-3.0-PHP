@@ -70,7 +70,7 @@ abstract class AbstractSaleRequest
     protected function readResponse($statusCode, $responseBody)
     {
         $unserialized = null;
-        
+
         switch ($statusCode) {
             case 200:
             case 201:
