@@ -1,12 +1,12 @@
 <?php
 namespace Cielo\API30\Ecommerce\Request;
 
-use Cielo\API30\Ecommerce\Request\AbstractSaleRequest;
+use Cielo\API30\Ecommerce\Request\AbstractRequest;
 use Cielo\API30\Environment;
 use Cielo\API30\Merchant;
 use Cielo\API30\Ecommerce\Payment;
 
-class UpdateSaleRequest extends AbstractSaleRequest
+class UpdateSaleRequest extends AbstractRequest
 {
 
     private $environment;
