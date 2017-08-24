@@ -1,7 +1,7 @@
 <?php
+
 namespace Cielo\API30\Ecommerce\Request;
 
-use Cielo\API30\Ecommerce\Request\AbstractSaleRequest;
 use Cielo\API30\Environment;
 use Cielo\API30\Merchant;
 use Cielo\API30\Ecommerce\Sale;
@@ -32,7 +32,10 @@ class CreateSaleRequest extends AbstractSaleRequest
     /**
      * @param $sale
      *
-     * @return null
+     * @return mixed
+     *
+     * @throws \RuntimeException
+     * @throws \Cielo\API30\Ecommerce\Request\CieloRequestException
      */
     public function execute($sale)
     {

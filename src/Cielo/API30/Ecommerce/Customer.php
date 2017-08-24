@@ -1,4 +1,5 @@
 <?php
+
 namespace Cielo\API30\Ecommerce;
 
 /**
@@ -8,19 +9,20 @@ namespace Cielo\API30\Ecommerce;
  */
 class Customer implements \JsonSerializable
 {
-
     private $name;
-
     private $email;
-
     private $birthDate;
-
     private $identity;
-
     private $identityType;
 
+    /**
+     * @var string
+     */
     private $address;
 
+    /**
+     * @var string
+     */
     private $deliveryAddress;
 
     /**
@@ -49,7 +51,6 @@ class Customer implements \JsonSerializable
         $this->name = isset($data->Name) ? $data->Name : null;
         $this->email = isset($data->Email) ? $data->Email : null;
         $this->birthDate = isset($data->Birthdate) ? $data->Birthdate : null;
-
         $this->identity = isset($data->Identity) ? $data->Identity : null;
         $this->identityType = isset($data->IdentityType) ? $data->IdentityType : null;
 
@@ -104,6 +105,7 @@ class Customer implements \JsonSerializable
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -123,6 +125,7 @@ class Customer implements \JsonSerializable
     public function setEmail($email)
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -142,6 +145,7 @@ class Customer implements \JsonSerializable
     public function setBirthDate($birthDate)
     {
         $this->birthDate = $birthDate;
+
         return $this;
     }
 
@@ -161,6 +165,7 @@ class Customer implements \JsonSerializable
     public function setIdentity($identity)
     {
         $this->identity = $identity;
+
         return $this;
     }
 
@@ -180,6 +185,7 @@ class Customer implements \JsonSerializable
     public function setIdentityType($identityType)
     {
         $this->identityType = $identityType;
+
         return $this;
     }
 
@@ -199,6 +205,7 @@ class Customer implements \JsonSerializable
     public function setAddress($address)
     {
         $this->address = $address;
+
         return $this;
     }
 
@@ -218,6 +225,7 @@ class Customer implements \JsonSerializable
     public function setDeliveryAddress($deliveryAddress)
     {
         $this->deliveryAddress = $deliveryAddress;
+
         return $this;
     }
 }

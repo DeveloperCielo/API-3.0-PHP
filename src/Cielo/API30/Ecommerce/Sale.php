@@ -1,4 +1,5 @@
 <?php
+
 namespace Cielo\API30\Ecommerce;
 
 /**
@@ -8,11 +9,8 @@ namespace Cielo\API30\Ecommerce;
  */
 class Sale implements \JsonSerializable
 {
-
     private $merchantOrderId;
-
     private $customer;
-
     private $payment;
 
     /**
@@ -41,12 +39,12 @@ class Sale implements \JsonSerializable
         $dataProps = get_object_vars($data);
 
         if (isset($dataProps['Customer'])) {
-            $this->customer = new \Cielo\API30\Ecommerce\Customer();
+            $this->customer = new Customer();
             $this->customer->populate($data->Customer);
         }
 
         if (isset($dataProps['Payment'])) {
-            $this->payment = new \Cielo\API30\Ecommerce\Payment();
+            $this->payment = new Payment();
             $this->payment->populate($data->Payment);
         }
 
@@ -64,7 +62,7 @@ class Sale implements \JsonSerializable
     {
         $object = json_decode($json);
 
-        $sale = new Sale();
+        $sale = new self();
         $sale->populate($object);
 
         return $sale;
@@ -115,6 +113,7 @@ class Sale implements \JsonSerializable
     public function setMerchantOrderId($merchantOrderId)
     {
         $this->merchantOrderId = $merchantOrderId;
+
         return $this;
     }
 
@@ -134,6 +133,7 @@ class Sale implements \JsonSerializable
     public function setCustomer(Customer $customer)
     {
         $this->customer = $customer;
+
         return $this;
     }
 
@@ -145,12 +145,15 @@ class Sale implements \JsonSerializable
         return $this->payment;
     }
 
-    /*
+    /**
+     * @param Payment $payment
      *
+     * @return $this
      */
     public function setPayment(Payment $payment)
     {
         $this->payment = $payment;
+
         return $this;
     }
 }

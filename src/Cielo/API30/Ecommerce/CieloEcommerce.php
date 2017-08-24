@@ -1,4 +1,5 @@
 <?php
+
 namespace Cielo\API30\Ecommerce;
 
 use Cielo\API30\Merchant;
@@ -12,9 +13,7 @@ use Cielo\API30\Ecommerce\Request\QueryRecurrentPaymentRequest;
  */
 class CieloEcommerce
 {
-
     private $merchant;
-
     private $environment;
 
     /**
@@ -29,7 +28,7 @@ class CieloEcommerce
      */
     public function __construct(Merchant $merchant, Environment $environment = null)
     {
-        if ($environment == null) {
+        if ($environment === null) {
             $environment = Environment::production();
         }
 
@@ -46,6 +45,7 @@ class CieloEcommerce
      *
      * @return Sale The Sale with authorization, tid, etc. returned by Cielo.
      *
+     * @throws \RuntimeException
      * @throws \Cielo\API30\Ecommerce\Request\CieloRequestException if anything gets wrong.
      *
      * @see <a href=
@@ -67,6 +67,7 @@ class CieloEcommerce
      *
      * @return Sale The Sale with authorization, tid, etc. returned by Cielo.
      *
+     * @throws \RuntimeException
      * @throws \Cielo\API30\Ecommerce\Request\CieloRequestException if anything gets wrong.
      *
      * @see <a href=
@@ -87,8 +88,9 @@ class CieloEcommerce
      *            The RecurrentPaymentId to be queried
      *
      * @return \Cielo\API30\Ecommerce\RecurrentPayment
-     *            The RecurrentPayment with authorization, tid, etc. returned by Cielo.
      *
+     * @throws \RuntimeException
+     *            The RecurrentPayment with authorization, tid, etc. returned by Cielo.
      * @throws \Cielo\API30\Ecommerce\Request\CieloRequestException if anything gets wrong.
      *
      * @see <a href=
@@ -112,6 +114,7 @@ class CieloEcommerce
      *
      * @return Sale The Sale with authorization, tid, etc. returned by Cielo.
      *
+     * @throws \RuntimeException
      * @throws \Cielo\API30\Ecommerce\Request\CieloRequestException if anything gets wrong.
      *
      * @see <a href=
@@ -141,7 +144,7 @@ class CieloEcommerce
      *
      * @return \Cielo\API30\Ecommerce\Payment The captured Payment.
      *
-     *
+     * @throws \RuntimeException
      * @throws \Cielo\API30\Ecommerce\Request\CieloRequestException if anything gets wrong.
      *
      * @see <a href=

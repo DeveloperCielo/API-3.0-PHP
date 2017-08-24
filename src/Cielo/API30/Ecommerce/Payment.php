@@ -1,4 +1,5 @@
 <?php
+
 namespace Cielo\API30\Ecommerce;
 
 /**
@@ -8,103 +9,55 @@ namespace Cielo\API30\Ecommerce;
  */
 class Payment implements \JsonSerializable
 {
-
     const PAYMENTTYPE_CREDITCARD = 'CreditCard';
-
     const PAYMENTTYPE_DEBITCARD = 'DebitCard';
-
     const PAYMENTTYPE_ELECTRONIC_TRANSFER = 'ElectronicTransfer';
-
     const PAYMENTTYPE_BOLETO = 'Boleto';
-
     const PROVIDER_BRADESCO = 'Bradesco';
-
     const PROVIDER_BANCO_DO_BRASIL = 'BancoDoBrasil';
-
     const PROVIDER_SIMULADO = 'Simulado';
 
     private $serviceTaxAmount;
-
     private $installments;
-
     private $interest;
-
     private $capture = false;
-
     private $authenticate = false;
-
     private $recurrent;
-
     private $recurrentPayment;
-
     private $creditCard;
-
     private $debitCard;
-
     private $authenticationUrl;
-
     private $tid;
-
     private $proofOfSale;
-
     private $authorizationCode;
-
-    private $softDescriptor = "";
-
+    private $softDescriptor = '';
     private $returnUrl;
-
     private $provider;
-
     private $paymentId;
-
     private $type;
-
     private $amount;
-
     private $receivedDate;
-
     private $capturedAmount;
-
     private $capturedDate;
-
     private $voidedAmount;
-
     private $voidedDate;
-
     private $currency;
-
     private $country;
-
     private $returnCode;
-
     private $returnMessage;
-
     private $status;
-
     private $links;
-
     private $extraDataCollection;
-
     private $expirationDate;
-
     private $url;
-
     private $number;
-
     private $boletoNumber;
-
     private $barCodeNumber;
-
     private $digitableLine;
-
     private $address;
-
     private $assignor;
-
     private $demonstrative;
-
     private $identification;
-
     private $instructions;
 
     /**
@@ -132,13 +85,12 @@ class Payment implements \JsonSerializable
      */
     public function populate(\stdClass $data)
     {
-
-        $this->serviceTaxAmount = isset($data->ServiceTaxAmount)? $data->ServiceTaxAmount: null;
-        $this->installments = isset($data->Installments)? $data->Installments: null;
-        $this->interest = isset($data->Interest)? $data->Interest: null;
-        $this->capture = isset($data->Capture)? ! ! $data->Capture: false;
-        $this->authenticate = isset($data->Authenticate)? ! ! $data->Authenticate: false;
-        $this->recurrent = isset($data->Recurrent)? ! ! $data->Recurrent: false;
+        $this->serviceTaxAmount = isset($data->ServiceTaxAmount) ? $data->ServiceTaxAmount : null;
+        $this->installments = isset($data->Installments) ? $data->Installments : null;
+        $this->interest = isset($data->Interest) ? $data->Interest : null;
+        $this->capture = isset($data->Capture) ? (bool) $data->Capture : false;
+        $this->authenticate = isset($data->Authenticate) ? (bool) $data->Authenticate : false;
+        $this->recurrent = isset($data->Recurrent) ? (bool) $data->Recurrent : false;
 
         if (isset($data->RecurrentPayment)) {
             $this->recurrentPayment = new RecurrentPayment(false);
@@ -155,39 +107,36 @@ class Payment implements \JsonSerializable
             $this->debitCard->populate($data->DebitCard);
         }
 
-        $this->expirationDate  =  isset($data->ExpirationDate)?$data->ExpirationDate: null;
-        $this->url             =  isset($data->Url)?$data->Url: null;
-        $this->boletoNumber    =  isset($data->BoletoNumber)? $data->BoletoNumber: null;
-        $this->barCodeNumber   =  isset($data->BarCodeNumber)?$data->BarCodeNumber: null;
-        $this->digitableLine   =  isset($data->DigitableLine)?$data->DigitableLine: null;
-        $this->address         =  isset($data->Address)?$data->Address: null;
-
-        $this->authenticationUrl = isset($data->AuthenticationUrl)? $data->AuthenticationUrl: null;
-        $this->tid = isset($data->Tid)? $data->Tid: null;
-        $this->proofOfSale = isset($data->ProofOfSale)? $data->ProofOfSale: null;
-        $this->authorizationCode = isset($data->AuthorizationCode)? $data->AuthorizationCode: null;
-        $this->softDescriptor = isset($data->SoftDescriptor)? $data->SoftDescriptor: null;
-        $this->provider = isset($data->Provider)? $data->Provider: null;
-        $this->paymentId = isset($data->PaymentId)? $data->PaymentId: null;
-        $this->type = isset($data->Type)? $data->Type: null;
-        $this->amount = isset($data->Amount)? $data->Amount: null;
-        $this->receivedDate = isset($data->ReceivedDate)? $data->ReceivedDate: null;
-        $this->capturedAmount = isset($data->CapturedAmount)? $data->CapturedAmount: null;
-        $this->capturedDate = isset($data->CapturedDate)? $data->CapturedDate: null;
-        $this->voidedAmount = isset($data->VoidedAmount)? $data->VoidedAmount: null;
-        $this->voidedDate = isset($data->VoidedDate)? $data->VoidedDate: null;
-        $this->currency = isset($data->Currency)? $data->Currency: null;
-        $this->country = isset($data->Country)? $data->Country: null;
-        $this->returnCode = isset($data->ReturnCode)? $data->ReturnCode: null;
-        $this->returnMessage = isset($data->ReturnMessage)? $data->ReturnMessage: null;
-        $this->status = isset($data->Status)? $data->Status: null;
-
-        $this->links = isset($data->Links)? $data->Links: [];
-
-        $this->assignor = isset($data->Assignor)? $data->Assignor: null;
-        $this->demonstrative = isset($data->Demonstrative)? $data->Demonstrative: null;
-        $this->identification = isset($data->Identification)? $data->Identification: null;
-        $this->instructions = isset($data->Instructions)? $data->Instructions: null;
+        $this->expirationDate = isset($data->ExpirationDate) ? $data->ExpirationDate : null;
+        $this->url = isset($data->Url) ? $data->Url : null;
+        $this->boletoNumber = isset($data->BoletoNumber) ? $data->BoletoNumber : null;
+        $this->barCodeNumber = isset($data->BarCodeNumber) ? $data->BarCodeNumber : null;
+        $this->digitableLine = isset($data->DigitableLine) ? $data->DigitableLine : null;
+        $this->address = isset($data->Address) ? $data->Address : null;
+        $this->authenticationUrl = isset($data->AuthenticationUrl) ? $data->AuthenticationUrl : null;
+        $this->tid = isset($data->Tid) ? $data->Tid : null;
+        $this->proofOfSale = isset($data->ProofOfSale) ? $data->ProofOfSale : null;
+        $this->authorizationCode = isset($data->AuthorizationCode) ? $data->AuthorizationCode : null;
+        $this->softDescriptor = isset($data->SoftDescriptor) ? $data->SoftDescriptor : null;
+        $this->provider = isset($data->Provider) ? $data->Provider : null;
+        $this->paymentId = isset($data->PaymentId) ? $data->PaymentId : null;
+        $this->type = isset($data->Type) ? $data->Type : null;
+        $this->amount = isset($data->Amount) ? $data->Amount : null;
+        $this->receivedDate = isset($data->ReceivedDate) ? $data->ReceivedDate : null;
+        $this->capturedAmount = isset($data->CapturedAmount) ? $data->CapturedAmount : null;
+        $this->capturedDate = isset($data->CapturedDate) ? $data->CapturedDate : null;
+        $this->voidedAmount = isset($data->VoidedAmount) ? $data->VoidedAmount : null;
+        $this->voidedDate = isset($data->VoidedDate) ? $data->VoidedDate : null;
+        $this->currency = isset($data->Currency) ? $data->Currency : null;
+        $this->country = isset($data->Country) ? $data->Country : null;
+        $this->returnCode = isset($data->ReturnCode) ? $data->ReturnCode : null;
+        $this->returnMessage = isset($data->ReturnMessage) ? $data->ReturnMessage : null;
+        $this->status = isset($data->Status) ? $data->Status : null;
+        $this->links = isset($data->Links) ? $data->Links : [];
+        $this->assignor = isset($data->Assignor) ? $data->Assignor : null;
+        $this->demonstrative = isset($data->Demonstrative) ? $data->Demonstrative : null;
+        $this->identification = isset($data->Identification) ? $data->Identification : null;
+        $this->instructions = isset($data->Instructions) ? $data->Instructions : null;
     }
 
     /**
@@ -197,7 +146,7 @@ class Payment implements \JsonSerializable
      */
     public static function fromJson($json)
     {
-        $payment = new Payment();
+        $payment = new self();
         $payment->populate(json_decode($json));
 
         return $payment;
@@ -280,6 +229,7 @@ class Payment implements \JsonSerializable
     public function setServiceTaxAmount($serviceTaxAmount)
     {
         $this->serviceTaxAmount = $serviceTaxAmount;
+
         return $this;
     }
 
@@ -299,6 +249,7 @@ class Payment implements \JsonSerializable
     public function setInstallments($installments)
     {
         $this->installments = $installments;
+
         return $this;
     }
 
@@ -318,6 +269,7 @@ class Payment implements \JsonSerializable
     public function setInterest($interest)
     {
         $this->interest = $interest;
+
         return $this;
     }
 
@@ -337,6 +289,7 @@ class Payment implements \JsonSerializable
     public function setCapture($capture)
     {
         $this->capture = $capture;
+
         return $this;
     }
 
@@ -356,6 +309,7 @@ class Payment implements \JsonSerializable
     public function setAuthenticate($authenticate)
     {
         $this->authenticate = $authenticate;
+
         return $this;
     }
 
@@ -375,6 +329,7 @@ class Payment implements \JsonSerializable
     public function setRecurrent($recurrent)
     {
         $this->recurrent = $recurrent;
+
         return $this;
     }
 
@@ -394,6 +349,7 @@ class Payment implements \JsonSerializable
     public function setRecurrentPayment($recurrentPayment)
     {
         $this->recurrentPayment = $recurrentPayment;
+
         return $this;
     }
 
@@ -413,6 +369,7 @@ class Payment implements \JsonSerializable
     public function setCreditCard(CreditCard $creditCard)
     {
         $this->creditCard = $creditCard;
+
         return $this;
     }
 
@@ -432,6 +389,7 @@ class Payment implements \JsonSerializable
     public function setDebitCard($debitCard)
     {
         $this->debitCard = $debitCard;
+
         return $this;
     }
 
@@ -451,6 +409,7 @@ class Payment implements \JsonSerializable
     public function setAuthenticationUrl($authenticationUrl)
     {
         $this->authenticationUrl = $authenticationUrl;
+
         return $this;
     }
 
@@ -470,6 +429,7 @@ class Payment implements \JsonSerializable
     public function setTid($tid)
     {
         $this->tid = $tid;
+
         return $this;
     }
 
@@ -489,6 +449,7 @@ class Payment implements \JsonSerializable
     public function setProofOfSale($proofOfSale)
     {
         $this->proofOfSale = $proofOfSale;
+
         return $this;
     }
 
@@ -508,6 +469,7 @@ class Payment implements \JsonSerializable
     public function setAuthorizationCode($authorizationCode)
     {
         $this->authorizationCode = $authorizationCode;
+
         return $this;
     }
 
@@ -527,6 +489,7 @@ class Payment implements \JsonSerializable
     public function setSoftDescriptor($softDescriptor)
     {
         $this->softDescriptor = $softDescriptor;
+
         return $this;
     }
 
@@ -546,6 +509,7 @@ class Payment implements \JsonSerializable
     public function setReturnUrl($returnUrl)
     {
         $this->returnUrl = $returnUrl;
+
         return $this;
     }
 
@@ -565,6 +529,7 @@ class Payment implements \JsonSerializable
     public function setProvider($provider)
     {
         $this->provider = $provider;
+
         return $this;
     }
 
@@ -584,6 +549,7 @@ class Payment implements \JsonSerializable
     public function setPaymentId($paymentId)
     {
         $this->paymentId = $paymentId;
+
         return $this;
     }
 
@@ -603,6 +569,7 @@ class Payment implements \JsonSerializable
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -622,6 +589,7 @@ class Payment implements \JsonSerializable
     public function setAmount($amount)
     {
         $this->amount = $amount;
+
         return $this;
     }
 
@@ -641,6 +609,7 @@ class Payment implements \JsonSerializable
     public function setReceivedDate($receivedDate)
     {
         $this->receivedDate = $receivedDate;
+
         return $this;
     }
 
@@ -660,6 +629,7 @@ class Payment implements \JsonSerializable
     public function setCapturedAmount($capturedAmount)
     {
         $this->capturedAmount = $capturedAmount;
+
         return $this;
     }
 
@@ -679,6 +649,7 @@ class Payment implements \JsonSerializable
     public function setCapturedDate($capturedDate)
     {
         $this->capturedDate = $capturedDate;
+
         return $this;
     }
 
@@ -698,6 +669,7 @@ class Payment implements \JsonSerializable
     public function setVoidedAmount($voidedAmount)
     {
         $this->voidedAmount = $voidedAmount;
+
         return $this;
     }
 
@@ -717,6 +689,7 @@ class Payment implements \JsonSerializable
     public function setVoidedDate($voidedDate)
     {
         $this->voidedDate = $voidedDate;
+
         return $this;
     }
 
@@ -736,6 +709,7 @@ class Payment implements \JsonSerializable
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+
         return $this;
     }
 
@@ -755,6 +729,7 @@ class Payment implements \JsonSerializable
     public function setCountry($country)
     {
         $this->country = $country;
+
         return $this;
     }
 
@@ -774,6 +749,7 @@ class Payment implements \JsonSerializable
     public function setReturnCode($returnCode)
     {
         $this->returnCode = $returnCode;
+
         return $this;
     }
 
@@ -793,6 +769,7 @@ class Payment implements \JsonSerializable
     public function setReturnMessage($returnMessage)
     {
         $this->returnMessage = $returnMessage;
+
         return $this;
     }
 
@@ -812,6 +789,7 @@ class Payment implements \JsonSerializable
     public function setStatus($status)
     {
         $this->status = $status;
+
         return $this;
     }
 
@@ -831,6 +809,7 @@ class Payment implements \JsonSerializable
     public function setLinks($links)
     {
         $this->links = $links;
+
         return $this;
     }
 
@@ -850,6 +829,7 @@ class Payment implements \JsonSerializable
     public function setExtraDataCollection($extraDataCollection)
     {
         $this->extraDataCollection = $extraDataCollection;
+
         return $this;
     }
 
@@ -869,6 +849,7 @@ class Payment implements \JsonSerializable
     public function setExpirationDate($expirationDate)
     {
         $this->expirationDate = $expirationDate;
+
         return $this;
     }
 
@@ -888,6 +869,7 @@ class Payment implements \JsonSerializable
     public function setUrl($url)
     {
         $this->url = $url;
+
         return $this;
     }
 
@@ -907,6 +889,7 @@ class Payment implements \JsonSerializable
     public function setNumber($number)
     {
         $this->number = $number;
+
         return $this;
     }
 
@@ -926,6 +909,7 @@ class Payment implements \JsonSerializable
     public function setBoletoNumber($boletoNumber)
     {
         $this->boletoNumber = $boletoNumber;
+
         return $this;
     }
 
@@ -945,6 +929,7 @@ class Payment implements \JsonSerializable
     public function setBarCodeNumber($barCodeNumber)
     {
         $this->barCodeNumber = $barCodeNumber;
+
         return $this;
     }
 
@@ -964,6 +949,7 @@ class Payment implements \JsonSerializable
     public function setDigitableLine($digitableLine)
     {
         $this->digitableLine = $digitableLine;
+
         return $this;
     }
 
@@ -983,6 +969,7 @@ class Payment implements \JsonSerializable
     public function setAddress($address)
     {
         $this->address = $address;
+
         return $this;
     }
 

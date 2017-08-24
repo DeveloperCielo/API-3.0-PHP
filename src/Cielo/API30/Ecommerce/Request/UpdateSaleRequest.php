@@ -1,7 +1,7 @@
 <?php
+
 namespace Cielo\API30\Ecommerce\Request;
 
-use Cielo\API30\Ecommerce\Request\AbstractSaleRequest;
 use Cielo\API30\Environment;
 use Cielo\API30\Merchant;
 use Cielo\API30\Ecommerce\Payment;
@@ -13,19 +13,15 @@ use Cielo\API30\Ecommerce\Payment;
  */
 class UpdateSaleRequest extends AbstractSaleRequest
 {
-
     private $environment;
-
     private $type;
-
     private $serviceTaxAmount;
-
     private $amount;
 
     /**
      * UpdateSaleRequest constructor.
      *
-     * @param Merchant $type
+     * @param string $type
      * @param Merchant $merchant
      * @param Environment $environment
      */
@@ -40,18 +36,21 @@ class UpdateSaleRequest extends AbstractSaleRequest
     /**
      * @param $paymentId
      *
-     * @return null
+     * @return mixed
+     *
+     * @throws \RuntimeException
+     * @throws \Cielo\API30\Ecommerce\Request\CieloRequestException
      */
     public function execute($paymentId)
     {
         $url = $this->environment->getApiUrl() . '1/sales/' . $paymentId . '/' . $this->type;
         $params = [];
 
-        if ($this->amount != null) {
+        if ($this->amount !== null) {
             $params['amount'] = $this->amount;
         }
 
-        if ($this->serviceTaxAmount != null) {
+        if ($this->serviceTaxAmount !== null) {
             $params['serviceTaxAmount'] = $this->serviceTaxAmount;
         }
 
@@ -86,6 +85,7 @@ class UpdateSaleRequest extends AbstractSaleRequest
     public function setServiceTaxAmount($serviceTaxAmount)
     {
         $this->serviceTaxAmount = $serviceTaxAmount;
+
         return $this;
     }
 
@@ -105,6 +105,7 @@ class UpdateSaleRequest extends AbstractSaleRequest
     public function setAmount($amount)
     {
         $this->amount = $amount;
+
         return $this;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Cielo\API30\Ecommerce\Request;
 
 /**
@@ -8,7 +9,6 @@ namespace Cielo\API30\Ecommerce\Request;
  */
 class CieloRequestException extends \Exception
 {
-
     private $cieloError;
 
     /**
@@ -39,6 +39,7 @@ class CieloRequestException extends \Exception
     public function setCieloError(CieloError $cieloError)
     {
         $this->cieloError = $cieloError;
+
         return $this;
     }
 }

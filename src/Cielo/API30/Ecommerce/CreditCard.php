@@ -1,4 +1,5 @@
 <?php
+
 namespace Cielo\API30\Ecommerce;
 
 /**
@@ -8,19 +9,12 @@ namespace Cielo\API30\Ecommerce;
  */
 class CreditCard implements \JsonSerializable
 {
-
     private $cardNumber;
-
     private $holder;
-
     private $expirationDate;
-
     private $securityCode;
-
     private $saveCard = false;
-
     private $brand;
-
     private $cardToken;
 
     /**
@@ -36,13 +30,13 @@ class CreditCard implements \JsonSerializable
      */
     public function populate(\stdClass $data)
     {
-        $this->cardNumber = isset($data->CardNumber)? $data->CardNumber: null;
-        $this->holder = isset($data->Holder)? $data->Holder: null;
-        $this->expirationDate = isset($data->ExpirationDate)? $data->ExpirationDate: null;
-        $this->securityCode = isset($data->SecurityCode)? $data->SecurityCode: null;
-        $this->saveCard = isset($data->SaveCard)? !!$data->SaveCard: false;
-        $this->brand = isset($data->Brand)? $data->Brand: null;
-        $this->cardToken = isset($data->CardToken)? $data->CardToken: null;
+        $this->cardNumber = isset($data->CardNumber) ? $data->CardNumber : null;
+        $this->holder = isset($data->Holder) ? $data->Holder : null;
+        $this->expirationDate = isset($data->ExpirationDate) ? $data->ExpirationDate : null;
+        $this->securityCode = isset($data->SecurityCode) ? $data->SecurityCode : null;
+        $this->saveCard = isset($data->SaveCard) ? (bool) $data->SaveCard : false;
+        $this->brand = isset($data->Brand) ? $data->Brand : null;
+        $this->cardToken = isset($data->CardToken) ? $data->CardToken : null;
     }
 
     /**
@@ -61,6 +55,7 @@ class CreditCard implements \JsonSerializable
     public function setCardNumber($cardNumber)
     {
         $this->cardNumber = $cardNumber;
+
         return $this;
     }
 
@@ -80,6 +75,7 @@ class CreditCard implements \JsonSerializable
     public function setHolder($holder)
     {
         $this->holder = $holder;
+
         return $this;
     }
 
@@ -99,6 +95,7 @@ class CreditCard implements \JsonSerializable
     public function setExpirationDate($expirationDate)
     {
         $this->expirationDate = $expirationDate;
+
         return $this;
     }
 
@@ -118,6 +115,7 @@ class CreditCard implements \JsonSerializable
     public function setSecurityCode($securityCode)
     {
         $this->securityCode = $securityCode;
+
         return $this;
     }
 
@@ -137,6 +135,7 @@ class CreditCard implements \JsonSerializable
     public function setSaveCard($saveCard)
     {
         $this->saveCard = $saveCard;
+
         return $this;
     }
 
@@ -156,6 +155,7 @@ class CreditCard implements \JsonSerializable
     public function setBrand($brand)
     {
         $this->brand = $brand;
+
         return $this;
     }
 
@@ -175,6 +175,7 @@ class CreditCard implements \JsonSerializable
     public function setCardToken($cardToken)
     {
         $this->cardToken = $cardToken;
+
         return $this;
     }
 }
