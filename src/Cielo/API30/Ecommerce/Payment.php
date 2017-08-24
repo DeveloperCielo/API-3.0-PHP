@@ -1,6 +1,11 @@
 <?php
 namespace Cielo\API30\Ecommerce;
 
+/**
+ * Class Payment
+ *
+ * @package Cielo\API30\Ecommerce
+ */
 class Payment implements \JsonSerializable
 {
 
@@ -102,17 +107,29 @@ class Payment implements \JsonSerializable
 
     private $instructions;
 
+    /**
+     * Payment constructor.
+     *
+     * @param int $amount
+     * @param int $installments
+     */
     public function __construct($amount = 0, $installments = 1)
     {
         $this->setAmount($amount);
         $this->setInstallments($installments);
     }
 
+    /**
+     * @return array
+     */
     public function jsonSerialize()
     {
         return get_object_vars($this);
     }
 
+    /**
+     * @param \stdClass $data
+     */
     public function populate(\stdClass $data)
     {
 
@@ -173,6 +190,11 @@ class Payment implements \JsonSerializable
         $this->instructions = isset($data->Instructions)? $data->Instructions: null;
     }
 
+    /**
+     * @param $json
+     *
+     * @return Payment
+     */
     public static function fromJson($json)
     {
         $payment = new Payment();
@@ -181,6 +203,12 @@ class Payment implements \JsonSerializable
         return $payment;
     }
 
+    /**
+     * @param $securityCode
+     * @param $brand
+     *
+     * @return CreditCard
+     */
     private function newCard($securityCode, $brand)
     {
         $card = new CreditCard();
@@ -190,6 +218,12 @@ class Payment implements \JsonSerializable
         return $card;
     }
 
+    /**
+     * @param $securityCode
+     * @param $brand
+     *
+     * @return CreditCard
+     */
     public function creditCard($securityCode, $brand)
     {
         $card = $this->newCard($securityCode, $brand);
@@ -200,6 +234,12 @@ class Payment implements \JsonSerializable
         return $card;
     }
 
+    /**
+     * @param $securityCode
+     * @param $brand
+     *
+     * @return CreditCard
+     */
     public function debitCard($securityCode, $brand)
     {
         $card = $this->newCard($securityCode, $brand);
@@ -210,6 +250,11 @@ class Payment implements \JsonSerializable
         return $card;
     }
 
+    /**
+     * @param bool $authorizeNow
+     *
+     * @return RecurrentPayment
+     */
     public function recurrentPayment($authorizeNow = true)
     {
         $recurrentPayment = new RecurrentPayment($authorizeNow);
@@ -219,88 +264,152 @@ class Payment implements \JsonSerializable
         return $recurrentPayment;
     }
 
+    /**
+     * @return mixed
+     */
     public function getServiceTaxAmount()
     {
         return $this->serviceTaxAmount;
     }
 
+    /**
+     * @param $serviceTaxAmount
+     *
+     * @return $this
+     */
     public function setServiceTaxAmount($serviceTaxAmount)
     {
         $this->serviceTaxAmount = $serviceTaxAmount;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getInstallments()
     {
         return $this->installments;
     }
 
+    /**
+     * @param $installments
+     *
+     * @return $this
+     */
     public function setInstallments($installments)
     {
         $this->installments = $installments;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getInterest()
     {
         return $this->interest;
     }
 
+    /**
+     * @param $interest
+     *
+     * @return $this
+     */
     public function setInterest($interest)
     {
         $this->interest = $interest;
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function getCapture()
     {
         return $this->capture;
     }
 
+    /**
+     * @param $capture
+     *
+     * @return $this
+     */
     public function setCapture($capture)
     {
         $this->capture = $capture;
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function getAuthenticate()
     {
         return $this->authenticate;
     }
 
+    /**
+     * @param $authenticate
+     *
+     * @return $this
+     */
     public function setAuthenticate($authenticate)
     {
         $this->authenticate = $authenticate;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getRecurrent()
     {
         return $this->recurrent;
     }
 
+    /**
+     * @param $recurrent
+     *
+     * @return $this
+     */
     public function setRecurrent($recurrent)
     {
         $this->recurrent = $recurrent;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getRecurrentPayment()
     {
         return $this->recurrentPayment;
     }
 
+    /**
+     * @param $recurrentPayment
+     *
+     * @return $this
+     */
     public function setRecurrentPayment($recurrentPayment)
     {
         $this->recurrentPayment = $recurrentPayment;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getCreditCard()
     {
         return $this->creditCard;
     }
 
+    /**
+     * @param CreditCard $creditCard
+     *
+     * @return $this
+     */
     public function setCreditCard(CreditCard $creditCard)
     {
         $this->creditCard = $creditCard;
@@ -317,6 +426,8 @@ class Payment implements \JsonSerializable
 
     /**
      * @param mixed $debitCard
+     *
+     * @return $this
      */
     public function setDebitCard($debitCard)
     {
@@ -324,330 +435,570 @@ class Payment implements \JsonSerializable
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAuthenticationUrl()
     {
         return $this->authenticationUrl;
     }
 
+    /**
+     * @param $authenticationUrl
+     *
+     * @return $this
+     */
     public function setAuthenticationUrl($authenticationUrl)
     {
         $this->authenticationUrl = $authenticationUrl;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getTid()
     {
         return $this->tid;
     }
 
+    /**
+     * @param $tid
+     *
+     * @return $this
+     */
     public function setTid($tid)
     {
         $this->tid = $tid;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getProofOfSale()
     {
         return $this->proofOfSale;
     }
 
+    /**
+     * @param $proofOfSale
+     *
+     * @return $this
+     */
     public function setProofOfSale($proofOfSale)
     {
         $this->proofOfSale = $proofOfSale;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAuthorizationCode()
     {
         return $this->authorizationCode;
     }
 
+    /**
+     * @param $authorizationCode
+     *
+     * @return $this
+     */
     public function setAuthorizationCode($authorizationCode)
     {
         $this->authorizationCode = $authorizationCode;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getSoftDescriptor()
     {
         return $this->softDescriptor;
     }
 
+    /**
+     * @param $softDescriptor
+     *
+     * @return $this
+     */
     public function setSoftDescriptor($softDescriptor)
     {
         $this->softDescriptor = $softDescriptor;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getReturnUrl()
     {
         return $this->returnUrl;
     }
 
+    /**
+     * @param $returnUrl
+     *
+     * @return $this
+     */
     public function setReturnUrl($returnUrl)
     {
         $this->returnUrl = $returnUrl;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getProvider()
     {
         return $this->provider;
     }
 
+    /**
+     * @param $provider
+     *
+     * @return $this
+     */
     public function setProvider($provider)
     {
         $this->provider = $provider;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getPaymentId()
     {
         return $this->paymentId;
     }
 
+    /**
+     * @param $paymentId
+     *
+     * @return $this
+     */
     public function setPaymentId($paymentId)
     {
         $this->paymentId = $paymentId;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * @param $type
+     *
+     * @return $this
+     */
     public function setType($type)
     {
         $this->type = $type;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAmount()
     {
         return $this->amount;
     }
 
+    /**
+     * @param $amount
+     *
+     * @return $this
+     */
     public function setAmount($amount)
     {
         $this->amount = $amount;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getReceivedDate()
     {
         return $this->receivedDate;
     }
 
+    /**
+     * @param $receivedDate
+     *
+     * @return $this
+     */
     public function setReceivedDate($receivedDate)
     {
         $this->receivedDate = $receivedDate;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getCapturedAmount()
     {
         return $this->capturedAmount;
     }
 
+    /**
+     * @param $capturedAmount
+     *
+     * @return $this
+     */
     public function setCapturedAmount($capturedAmount)
     {
         $this->capturedAmount = $capturedAmount;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getCapturedDate()
     {
         return $this->capturedDate;
     }
 
+    /**
+     * @param $capturedDate
+     *
+     * @return $this
+     */
     public function setCapturedDate($capturedDate)
     {
         $this->capturedDate = $capturedDate;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getVoidedAmount()
     {
         return $this->voidedAmount;
     }
 
+    /**
+     * @param $voidedAmount
+     *
+     * @return $this
+     */
     public function setVoidedAmount($voidedAmount)
     {
         $this->voidedAmount = $voidedAmount;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getVoidedDate()
     {
         return $this->voidedDate;
     }
 
+    /**
+     * @param $voidedDate
+     *
+     * @return $this
+     */
     public function setVoidedDate($voidedDate)
     {
         $this->voidedDate = $voidedDate;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getCurrency()
     {
         return $this->currency;
     }
 
+    /**
+     * @param $currency
+     *
+     * @return $this
+     */
     public function setCurrency($currency)
     {
         $this->currency = $currency;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getCountry()
     {
         return $this->country;
     }
 
+    /**
+     * @param $country
+     *
+     * @return $this
+     */
     public function setCountry($country)
     {
         $this->country = $country;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getReturnCode()
     {
         return $this->returnCode;
     }
 
+    /**
+     * @param $returnCode
+     *
+     * @return $this
+     */
     public function setReturnCode($returnCode)
     {
         $this->returnCode = $returnCode;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getReturnMessage()
     {
         return $this->returnMessage;
     }
 
+    /**
+     * @param $returnMessage
+     *
+     * @return $this
+     */
     public function setReturnMessage($returnMessage)
     {
         $this->returnMessage = $returnMessage;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getStatus()
     {
         return $this->status;
     }
 
+    /**
+     * @param $status
+     *
+     * @return $this
+     */
     public function setStatus($status)
     {
         $this->status = $status;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getLinks()
     {
         return $this->links;
     }
 
+    /**
+     * @param $links
+     *
+     * @return $this
+     */
     public function setLinks($links)
     {
         $this->links = $links;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getExtraDataCollection()
     {
         return $this->extraDataCollection;
     }
 
+    /**
+     * @param $extraDataCollection
+     *
+     * @return $this
+     */
     public function setExtraDataCollection($extraDataCollection)
     {
         $this->extraDataCollection = $extraDataCollection;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getExpirationDate()
     {
         return $this->expirationDate;
     }
 
+    /**
+     * @param $expirationDate
+     *
+     * @return $this
+     */
     public function setExpirationDate($expirationDate)
     {
         $this->expirationDate = $expirationDate;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getUrl()
     {
         return $this->url;
     }
 
+    /**
+     * @param $url
+     *
+     * @return $this
+     */
     public function setUrl($url)
     {
         $this->url = $url;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getNumber()
     {
         return $this->number;
     }
 
+    /**
+     * @param $number
+     *
+     * @return $this
+     */
     public function setNumber($number)
     {
         $this->number = $number;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getBoletoNumber()
     {
         return $this->boletoNumber;
     }
 
+    /**
+     * @param $boletoNumber
+     *
+     * @return $this
+     */
     public function setBoletoNumber($boletoNumber)
     {
         $this->boletoNumber = $boletoNumber;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getBarCodeNumber()
     {
         return $this->barCodeNumber;
     }
 
+    /**
+     * @param $barCodeNumber
+     *
+     * @return $this
+     */
     public function setBarCodeNumber($barCodeNumber)
     {
         $this->barCodeNumber = $barCodeNumber;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getDigitableLine()
     {
         return $this->digitableLine;
     }
 
+    /**
+     * @param $digitableLine
+     *
+     * @return $this
+     */
     public function setDigitableLine($digitableLine)
     {
         $this->digitableLine = $digitableLine;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAddress()
     {
         return $this->address;
     }
 
+    /**
+     * @param $address
+     *
+     * @return $this
+     */
     public function setAddress($address)
     {
         $this->address = $address;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAssignor()
     {
         return $this->assignor;
     }
 
+    /**
+     * @param $assignor
+     *
+     * @return $this
+     */
     public function setAssignor($assignor)
     {
         $this->assignor = $assignor;
@@ -655,11 +1006,19 @@ class Payment implements \JsonSerializable
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getDemonstrative()
     {
         return $this->demonstrative;
     }
 
+    /**
+     * @param $demonstrative
+     *
+     * @return $this
+     */
     public function setDemonstrative($demonstrative)
     {
         $this->demonstrative = $demonstrative;
@@ -667,11 +1026,19 @@ class Payment implements \JsonSerializable
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getIdentification()
     {
         return $this->identification;
     }
 
+    /**
+     * @param $identification
+     *
+     * @return $this
+     */
     public function setIdentification($identification)
     {
         $this->identification = $identification;
@@ -679,11 +1046,19 @@ class Payment implements \JsonSerializable
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getInstructions()
     {
         return $this->instructions;
     }
 
+    /**
+     * @param $instructions
+     *
+     * @return $this
+     */
     public function setInstructions($instructions)
     {
         $this->instructions = $instructions;
