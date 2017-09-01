@@ -5,17 +5,17 @@ use Cielo\API30\Merchant;
 use Cielo\API30\Ecommerce\Sale;
 
 /**
- * Class AbstractSaleRequest
+ * Class AbstractRequest
  *
  * @package Cielo\API30\Ecommerce\Request
  */
-abstract class AbstractSaleRequest
+abstract class AbstractRequest
 {
 
     private $merchant;
 
     /**
-     * AbstractSaleRequest constructor.
+     * AbstractRequest constructor.
      *
      * @param Merchant $merchant
      */
@@ -41,14 +41,14 @@ abstract class AbstractSaleRequest
     /**
      * @param $method
      * @param $url
-     * @param Sale|null $sale
+     * @param mixed|null $content
      *
      * @return mixed
      *
      * @throws \Cielo\API30\Ecommerce\Request\CieloRequestException
      * @throws \RuntimeException
      */
-    protected function sendRequest($method, $url, Sale $sale = null)
+    protected function sendRequest($method, $url, $content = null)
     {
         $headers = [
             'Accept: application/json',
@@ -74,8 +74,8 @@ abstract class AbstractSaleRequest
                 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
         }
 
-        if ($sale !== null) {
-            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($sale));
+        if ($content !== null) {
+            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($content));
 
             $headers[] = 'Content-Type: application/json';
         } else {
