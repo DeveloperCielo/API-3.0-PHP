@@ -1,7 +1,7 @@
 <?php
+
 namespace Cielo\API30\Ecommerce\Request;
 
-use Cielo\API30\Ecommerce\Request\AbstractSaleRequest;
 use Cielo\API30\Environment;
 use Cielo\API30\Merchant;
 use Cielo\API30\Ecommerce\RecurrentPayment;
@@ -13,7 +13,6 @@ use Cielo\API30\Ecommerce\RecurrentPayment;
  */
 class QueryRecurrentPaymentRequest extends AbstractSaleRequest
 {
-
     private $environment;
 
     /**
@@ -32,7 +31,10 @@ class QueryRecurrentPaymentRequest extends AbstractSaleRequest
     /**
      * @param $recurrentPaymentId
      *
-     * @return null
+     * @return mixed
+     *
+     * @throws \RuntimeException
+     * @throws \Cielo\API30\Ecommerce\Request\CieloRequestException
      */
     public function execute($recurrentPaymentId)
     {

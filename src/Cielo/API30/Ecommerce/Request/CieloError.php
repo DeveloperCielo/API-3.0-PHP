@@ -1,4 +1,5 @@
 <?php
+
 namespace Cielo\API30\Ecommerce\Request;
 
 /**
@@ -8,9 +9,7 @@ namespace Cielo\API30\Ecommerce\Request;
  */
 class CieloError
 {
-
     private $code;
-
     private $message;
 
     /**
@@ -41,6 +40,7 @@ class CieloError
     public function setCode($code)
     {
         $this->code = $code;
+
         return $this;
     }
 
@@ -60,6 +60,7 @@ class CieloError
     public function setMessage($message)
     {
         $this->message = $message;
+
         return $this;
     }
 }

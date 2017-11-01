@@ -1,4 +1,5 @@
 <?php
+
 namespace Cielo\API30\Ecommerce\Request;
 
 use Cielo\API30\Merchant;
@@ -29,14 +30,14 @@ abstract class AbstractSaleRequest
      *
      * @return mixed
      */
-    public abstract function execute($param);
+    abstract public function execute($param);
 
     /**
      * @param $json
      *
      * @return mixed
      */
-    protected abstract function unserialize($json);
+    abstract protected function unserialize($json);
 
     /**
      * @param $method

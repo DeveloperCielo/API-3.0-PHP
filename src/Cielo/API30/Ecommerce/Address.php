@@ -1,4 +1,5 @@
 <?php
+
 namespace Cielo\API30\Ecommerce;
 
 /**
@@ -8,21 +9,13 @@ namespace Cielo\API30\Ecommerce;
  */
 class Address implements CieloSerializable
 {
-
     private $street;
-
     private $number;
-
     private $complement;
-
     private $zipCode;
-
     private $city;
-
     private $state;
-
     private $country;
-
     private $district;
 
     /**
@@ -38,14 +31,14 @@ class Address implements CieloSerializable
      */
     public function populate(\stdClass $data)
     {
-        $this->street = isset($data->Street)? $data->Street: null;
-        $this->number = isset($data->Number)? $data->Number: null;
-        $this->complement = isset($data->Complement)? $data->Complement: null;
-        $this->zipCode = isset($data->ZipCode)? $data->ZipCode: null;
-        $this->city = isset($data->City)? $data->City: null;
-        $this->state = isset($data->State)? $data->State: null;
-        $this->country = isset($data->Country)? $data->Country: null;
-        $this->district = isset($data->District)? $data->District: null;
+        $this->street = isset($data->Street) ? $data->Street : null;
+        $this->number = isset($data->Number) ? $data->Number : null;
+        $this->complement = isset($data->Complement) ? $data->Complement : null;
+        $this->zipCode = isset($data->ZipCode) ? $data->ZipCode : null;
+        $this->city = isset($data->City) ? $data->City : null;
+        $this->state = isset($data->State) ? $data->State : null;
+        $this->country = isset($data->Country) ? $data->Country : null;
+        $this->district = isset($data->District) ? $data->District : null;
     }
 
     /**
@@ -64,6 +57,7 @@ class Address implements CieloSerializable
     public function setDistrict($district)
     {
         $this->district = $district;
+
         return $this;
     }
 
@@ -83,6 +77,7 @@ class Address implements CieloSerializable
     public function setStreet($street)
     {
         $this->street = $street;
+
         return $this;
     }
 
@@ -102,6 +97,7 @@ class Address implements CieloSerializable
     public function setNumber($number)
     {
         $this->number = $number;
+
         return $this;
     }
 
@@ -121,6 +117,7 @@ class Address implements CieloSerializable
     public function setComplement($complement)
     {
         $this->complement = $complement;
+
         return $this;
     }
 
@@ -140,6 +137,7 @@ class Address implements CieloSerializable
     public function setZipCode($zipCode)
     {
         $this->zipCode = $zipCode;
+
         return $this;
     }
 
@@ -159,6 +157,7 @@ class Address implements CieloSerializable
     public function setCity($city)
     {
         $this->city = $city;
+
         return $this;
     }
 
@@ -178,6 +177,7 @@ class Address implements CieloSerializable
     public function setState($state)
     {
         $this->state = $state;
+
         return $this;
     }
 
@@ -197,6 +197,7 @@ class Address implements CieloSerializable
     public function setCountry($country)
     {
         $this->country = $country;
+
         return $this;
     }
 }
