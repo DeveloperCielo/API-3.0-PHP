@@ -70,7 +70,7 @@ $environment = $environment = Environment::sandbox();
 // Configure seu merchant
 $merchant = new Merchant('MERCHANT ID', 'MERCHANT KEY');
 
-// Crie uma instância de Sale informando o ID do pagamento
+// Crie uma instância de Sale informando o ID do pedido na loja
 $sale = new Sale('123');
 
 // Crie uma instância de Customer informando o nome do cliente
@@ -130,7 +130,7 @@ $environment = $environment = Environment::sandbox();
 // Configure seu merchant
 $merchant = new Merchant('MERCHANT ID', 'MERCHANT KEY');
 
-// Crie uma instância de Sale informando o ID do pagamento
+// Crie uma instância de Sale informando o ID do pedido na loja
 $sale = new Sale('123');
 
 // Crie uma instância de Customer informando o nome do cliente
@@ -185,7 +185,7 @@ $environment = $environment = Environment::sandbox();
 // Configure seu merchant
 $merchant = new Merchant('MERCHANT ID', 'MERCHANT KEY');
 
-// Crie uma instância de Sale informando o ID do pagamento
+// Crie uma instância de Sale informando o ID do pedido na loja
 $sale = new Sale('123');
 
 // Crie uma instância de Customer informando o nome do cliente
@@ -238,7 +238,7 @@ $environment = $environment = Environment::sandbox();
 // Configure seu merchant
 $merchant = new Merchant('MID', 'MKEY');
 
-// Crie uma instância de Sale informando o ID do pagamento
+// Crie uma instância de Sale informando o ID do pedido na loja
 $sale = new Sale('123');
 
 // Crie uma instância de Customer informando o nome do cliente
@@ -294,7 +294,7 @@ $environment = $environment = Environment::sandbox();
 // Configure seu merchant
 $merchant = new Merchant('MERCHANT ID', 'MERCHANT KEY');
 
-// Crie uma instância de Sale informando o ID do pagamento
+// Crie uma instância de Sale informando o ID do pedido na loja
 $sale = new Sale('123');
 
 // Crie uma instância de Customer informando o nome do cliente
@@ -355,7 +355,7 @@ $environment = $environment = Environment::sandbox();
 // Configure seu merchant
 $merchant = new Merchant('MERCHANT ID', 'MERCHANT KEY');
 
-// Crie uma instância de Sale informando o ID do pagamento
+// Crie uma instância de Sale informando o ID do pedido na loja
 $sale = new Sale('123');
 
 // Crie uma instância de Customer informando o nome do cliente,
