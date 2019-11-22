@@ -336,7 +336,8 @@ $payment->setReturnUrl('https://localhost/test');
 $payment->debitCard("123", CreditCard::VISA)
         ->setExpirationDate("12/2018")
         ->setCardNumber("0000000000000001")
-        ->setHolder("Fulano de Tal");
+        ->setHolder("Fulano de Tal")
+        ->setAuthenticate(TRUE);
 
 // Crie o pagamento na Cielo
 try {
