@@ -43,4 +43,5 @@ class Merchant
     {
         return $this->key;
     }
+
 }

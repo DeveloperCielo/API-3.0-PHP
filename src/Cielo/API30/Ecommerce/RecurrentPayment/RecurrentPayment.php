@@ -1,11 +1,11 @@
 <?php
 
-namespace Cielo\API30\Ecommerce;
+namespace Cielo\API30\Ecommerce\RecurrentPayment;
 
 /**
  * Class RecurrentPayment
  *
- * @package Cielo\API30\Ecommerce
+ * @package Cielo\API30\Ecommerce\RecurrentPayment
  */
 class RecurrentPayment implements \JsonSerializable
 {
@@ -20,24 +20,116 @@ class RecurrentPayment implements \JsonSerializable
 
     const INTERVAL_ANNUAL = 'Annual';
 
+    /** @var boolean|null 
+     * Booleano para saber se a primeira recorrencia já vai ser Autorizada ou não.
+     * Formato: true, false
+     */
     private $authorizeNow;
+
+    /** @var guid|null 
+     * Campo Identificador da próxima recorrência.
+     * Tamanho: 26
+     * Formato: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+     */
     private $recurrentPaymentId;
+
+    /** @var string|null 
+     * Data da próxima recorrência.
+     * Tamanho: 7
+     * Formato: 2017-06-07 (YYYY/MM/DD)
+     */
     private $nextRecurrency;
+
+    /** @var string|null 
+     * Data do inicio da recorrência.
+     * Tamanho: 7
+     * Formato: 2017-06-07 (YYYY/MM/DD)
+     */
     private $startDate;
+
+    /** @var string|null 
+     * Data do fim da recorrência.
+     * Tamanho: 7
+     * Formato: 2017-06-07 (YYYY/MM/DD)
+     */
     private $endDate;
+
+    /** @var string|null 
+     * Intervalo entre as recorrência.
+     * Tamanho: 10
+     * Formato: Monthly / Bimonthly / Quarterly / SemiAnnual / Annual
+     */
     private $interval;
+
+    /** @var integer|null 
+     * Valor do Pedido (ser enviado em centavos)
+     * Tamanho: 15
+     */
     private $amount;
+
+    /** @var string|null 
+     * Pais no qual o pagamento será feito
+     * Tamanho: 3
+     */
     private $country;
+
+    /**
+     */
     private $createDate;
+
+    /** @var string 
+     * Moeda na qual o pagamento será feito (BRL)
+     * Tamanho: 3
+     */
     private $currency;
+
+    /** @var integer|null 
+     * Indica o número de tentativa da recorrência atual
+     * Tamanho: 1
+     */
     private $currentRecurrencyTry;
+
+    /**
+     */
     private $provider;
+
+    /** @var integer|null 
+     * Dia da Recorrência
+     * Tamanho: 2
+     */
     private $recurrencyDay;
+
+    /** @var integer|null 
+     * Quantidade de recorrência realizada com sucesso
+     * Tamanho: 2
+     */
     private $successfulRecurrences;
+
+    /** 
+     */
     private $links;
+
+    /** @var RecurrentTransaction */
     private $recurrentTransactions;
+
+    /** 
+     */
     private $reasonCode;
+
+    /** 
+     */
     private $reasonMessage;
+
+    /** @var integer|null 
+     * Status do pedido recorrente
+     * Tamanho: 1
+     * Formato: 
+     * 1 - Ativo 
+     * 2 - Finalizado 
+     * 3- Desativada pelo Lojista 
+     * 4 - Desativada por numero de retentativas 
+     * 5 - Desativada por cartão de crédito vencido
+     */
     private $status;
 
     /**
@@ -90,7 +182,15 @@ class RecurrentPayment implements \JsonSerializable
         $this->successfulRecurrences = isset($data->SuccessfulRecurrences) ? $data->SuccessfulRecurrences : null;
 
         $this->links                 = isset($data->Links) ? $data->Links : [];
-        $this->recurrentTransactions = isset($data->RecurrentTransactions) ? $data->RecurrentTransactions : [];
+
+        $this->recurrentTransactions = [];
+        if (isset($data->recurrentTransactions)) {
+            foreach ($data->recurrentTransactions as $recurrentTransaction) {
+                $recurrentTrans = new RecurrentTransaction();
+                $recurrentTrans->populate($recurrentTransaction);    
+                $this->recurrentTransactions[] = $recurrentTrans;
+            }      
+        }
 
         $this->reasonCode    = isset($data->ReasonCode) ? $data->ReasonCode : null;
         $this->reasonMessage = isset($data->ReasonMessage) ? $data->ReasonMessage : null;

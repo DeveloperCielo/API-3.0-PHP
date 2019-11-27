@@ -10,19 +10,67 @@ namespace Cielo\API30\Ecommerce;
 class Customer implements \JsonSerializable
 {
 
+    /** @var string|null 
+     * Nome do Comprador.
+     * Tamanho: 255
+     * */
     private $name;
 
+    /** @var string|null 
+     * Status de cadastro do comprador na loja, valores possíveis: 
+     * NEW
+     * EXISTING
+     * * Tamanho: 255
+     */
+    private $status;
+
+    /** @var string|null 
+     * Email do Comprador.
+     * * Tamanho: 255
+     */
     private $email;
 
+    /** @var date|null 
+     * Data de nascimento do Comprador.
+     * * Tamanho: 10
+     */
     private $birthDate;
 
+    /** @var string|null 
+     * Número do RG, CPF ou CNPJ do Cliente.
+     * * Tamanho: 14
+     */
     private $identity;
 
+    /** @var string|null 
+     * Tipo de documento de identificação do comprador, valores possíveis: 
+     * CFP
+     * CNPJ
+     * * Tamanho: 255
+     * */
     private $identityType;
 
+    /** @var Address|null 
+     * Endereço do Comprador
+     */
     private $address;
 
+    /** @var Address|null 
+     * Endereço de entrega do Comprador para produtos físicos
+     */
     private $deliveryAddress;
+
+    /** @var string|null 
+     * Número de telefone fixo do comprador
+     * * Tamanho: 
+     */
+    private $phone;
+
+    /** @var string|null 
+     * Número de telefone celular do comprador
+     * * Tamanho: 
+     */
+    private $mobile;
 
     /**
      * Customer constructor.
@@ -48,6 +96,7 @@ class Customer implements \JsonSerializable
     public function populate(\stdClass $data)
     {
         $this->name      = isset($data->Name) ? $data->Name : null;
+        $this->status      = isset($data->Status) ? $data->Status : null;
         $this->email     = isset($data->Email) ? $data->Email : null;
         $this->birthDate = isset($data->Birthdate) ? $data->Birthdate : null;
 
@@ -63,6 +112,9 @@ class Customer implements \JsonSerializable
             $this->deliveryAddress = new Address();
             $this->deliveryAddress->populate($data->DeliveryAddress);
         }
+
+        $this->phone      = isset($data->Phone) ? $data->Phone : null;
+        $this->mobile      = isset($data->Mobile) ? $data->Mobile : null;
     }
 
     /**
@@ -105,6 +157,26 @@ class Customer implements \JsonSerializable
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param $status
+     *
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
 
         return $this;
     }
@@ -225,6 +297,46 @@ class Customer implements \JsonSerializable
     public function setDeliveryAddress($deliveryAddress)
     {
         $this->deliveryAddress = $deliveryAddress;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param $phone
+     *
+     * @return $this
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMobile()
+    {
+        return $this->mobile;
+    }
+
+    /**
+     * @param $mobile
+     *
+     * @return $this
+     */
+    public function setMobile($mobile)
+    {
+        $this->mobile = $mobile;
 
         return $this;
     }

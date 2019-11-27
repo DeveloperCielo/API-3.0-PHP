@@ -54,22 +54,48 @@ class CreditCard implements \JsonSerializable, CieloSerializable
      */
     const HIPERCARD = 'Hipercard';
 
-    /** @var string $cardNumber */
+    /** @var string
+     * Número do Cartão do Comprador
+     * Tamanho: 19
+     */
     private $cardNumber;
 
-    /** @var string $holder */
+    /** @var string|null
+     * Nome do Comprador impresso no cartão
+     * Tamanho: 25
+     */
     private $holder;
 
-    /** @var string $expirationDate */
+    /** @var string
+     * Data de validade impresso no cartão
+     * Tamanho: 7
+     */
     private $expirationDate;
 
-    /** @var string $securityCode */
+    /** @var string|null
+     * Código de segurança impresso no verso do cartão
+     * Tamanho: 4
+     */
     private $securityCode;
 
-    /** @var bool $saveCard */
+    /** @var bool
+     * O cartão deve ser salvo para o cliente?
+     */
     private $saveCard = false;
 
-    /** @var string $brand */
+    /** @var string
+     * Bandeira do cartão. Valores possíveis:
+     * Visa
+     * Master
+     * Amex
+     * Elo
+     * Aura
+     * JCB
+     * Diners
+     * Discover
+     * Hipercard
+     * Tamanho: 10
+     */
     private $brand;
 
     /** @var string $cardToken */
@@ -80,6 +106,9 @@ class CreditCard implements \JsonSerializable, CieloSerializable
 
     /** @var \stdClass $links */
     private $links;
+
+    /** @var CardOnFile|null $cardOnFile */
+    private $cardOnFile;
 
     /**
      * @param string $json
@@ -109,6 +138,11 @@ class CreditCard implements \JsonSerializable, CieloSerializable
         $this->cardToken      = isset($data->CardToken) ? $data->CardToken : null;
         $this->links          = isset($data->Links) ? $data->Links : new \stdClass();
         $this->customerName   = isset($data->CustomerName) ? $data->CustomerName : null;
+
+        if (isset($data->cardOnFile)) {
+            $this->cardOnFile = new CardOnFile();
+            $this->cardOnFile->populate($data->cardOnFile);
+        }
     }
 
     /**
@@ -290,4 +324,21 @@ class CreditCard implements \JsonSerializable, CieloSerializable
     {
         $this->links = $links;
     }
+
+    /**
+     * @return CardOnFile
+     */
+    public function getCardOnFile()
+    {
+        return $this->cardOnFile;
+    }
+
+    /**
+     * @param CardOnFile $cardOnFile
+     */
+    public function setCardOnFile($cardOnFile)
+    {
+        $this->cardOnFile = $cardOnFile;
+    }
+
 }

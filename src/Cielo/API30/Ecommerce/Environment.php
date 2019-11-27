@@ -66,4 +66,5 @@ class Environment implements \Cielo\API30\Environment
     {
         return $this->apiQuery;
     }
+
 }

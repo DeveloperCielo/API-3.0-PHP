@@ -9,21 +9,52 @@ namespace Cielo\API30\Ecommerce;
  */
 class Address implements CieloSerializable
 {
-
+    /** @var string|null 
+     * Endereço do Comprador
+     * * Tamanho: 255
+     */
     private $street;
 
+    /** @var string|null 
+     * Número do endereço do Comprador
+     * * Tamanho: 15
+     */
     private $number;
 
+    /** @var string|null 
+     * Complemento do endereço do Comprador
+     * * Tamanho: 50
+     */
     private $complement;
 
+    /** @var string|null 
+     * CEP do endereço do Comprador
+     * * Tamanho: 9
+     */
     private $zipCode;
 
+    /** @var string|null 
+     * Cidade do endereço do Comprador
+     * * Tamanho: 50
+     */
     private $city;
 
+    /** @var string|null 
+     * Estado do endereço do Comprador
+     * * Tamanho: 2
+     */
     private $state;
 
+    /** @var string|null 
+     * Pais do endereço do Comprador
+     * * Tamanho: 35
+     */
     private $country;
 
+    /** @var string|null 
+     * Bairro do Endereço do Comprador
+     * * Tamanho: 
+     */
     private $district;
 
     /**
