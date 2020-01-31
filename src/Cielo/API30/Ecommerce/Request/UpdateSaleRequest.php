@@ -5,6 +5,7 @@ namespace Cielo\API30\Ecommerce\Request;
 use Cielo\API30\Ecommerce\Payment;
 use Cielo\API30\Environment;
 use Cielo\API30\Merchant;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class UpdateSaleRequest
@@ -22,16 +23,17 @@ class UpdateSaleRequest extends AbstractRequest
 
     private $amount;
 
-    /**
-     * UpdateSaleRequest constructor.
-     *
-     * @param Merchant    $type
-     * @param Merchant    $merchant
-     * @param Environment $environment
-     */
-    public function __construct($type, Merchant $merchant, Environment $environment)
+	/**
+	 * UpdateSaleRequest constructor.
+	 *
+	 * @param Merchant $type
+	 * @param Merchant $merchant
+	 * @param Environment $environment
+	 * @param LoggerInterface|null $logger
+	 */
+    public function __construct($type, Merchant $merchant, Environment $environment, LoggerInterface $logger = null)
     {
-        parent::__construct($merchant);
+        parent::__construct($merchant, $logger);
 
         $this->environment = $environment;
         $this->type        = $type;

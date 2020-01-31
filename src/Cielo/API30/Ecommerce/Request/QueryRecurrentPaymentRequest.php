@@ -5,6 +5,7 @@ namespace Cielo\API30\Ecommerce\Request;
 use Cielo\API30\Ecommerce\RecurrentPayment;
 use Cielo\API30\Environment;
 use Cielo\API30\Merchant;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class QueryRecurrentPaymentRequest
@@ -16,15 +17,16 @@ class QueryRecurrentPaymentRequest extends AbstractRequest
 
     private $environment;
 
-    /**
-     * QueryRecurrentPaymentRequest constructor.
-     *
-     * @param Merchant    $merchant
-     * @param Environment $environment
-     */
-    public function __construct(Merchant $merchant, Environment $environment)
+	/**
+	 * QueryRecurrentPaymentRequest constructor.
+	 *
+	 * @param Merchant $merchant
+	 * @param Environment $environment
+	 * @param LoggerInterface|null $logger
+	 */
+    public function __construct(Merchant $merchant, Environment $environment, LoggerInterface $logger = null)
     {
-        parent::__construct($merchant);
+        parent::__construct($merchant, $logger);
 
         $this->environment = $environment;
     }
