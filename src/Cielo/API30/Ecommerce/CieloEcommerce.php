@@ -7,6 +7,7 @@ use Cielo\API30\Ecommerce\Request\QueryRecurrentPaymentRequest;
 use Cielo\API30\Ecommerce\Request\QuerySaleRequest;
 use Cielo\API30\Ecommerce\Request\TokenizeCardRequest;
 use Cielo\API30\Ecommerce\Request\UpdateSaleRequest;
+use Cielo\API30\Ecommerce\Request\UpdateRecurrentPaymentRequest;
 use Cielo\API30\Merchant;
 use Psr\Log\LoggerInterface;
 
@@ -175,5 +176,75 @@ class CieloEcommerce
         $tokenizeCardRequest = new TokenizeCardRequest($this->merchant, $this->environment, $this->logger);
 
         return $tokenizeCardRequest->execute($card);
+    }
+
+    /**
+     * Deactivate a RecurrentPayment on Cielo
+     *
+     * @param string $recurrentPaymentId
+     *            The RecurrentPaymentId to be deactivated
+     *
+     * @return \Cielo\API30\Ecommerce\RecurrentPayment The RecurrentPayment with authorization, tid, etc. returned by Cielo.
+     * @throws CieloRequestException if anything gets wrong.
+     * @see <a href=
+     *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
+     *      Codes</a>
+     */
+    public function deactivateRecurrentPayment($recurrentPaymentId)
+    {
+        $deactivateRecurrentPaymentRequest = new UpdateRecurrentPaymentRequest('Deactivate', $this->merchant, $this->environment);
+
+        return $deactivateRecurrentPaymentRequest->execute($recurrentPaymentId);
+    }
+
+    /**
+     * Reactivate a RecurrentPayment on Cielo
+     *
+     * @param string $recurrentPaymentId
+     *            The RecurrentPaymentId to be reactivated
+     *
+     * @return \Cielo\API30\Ecommerce\RecurrentPayment The RecurrentPayment with authorization, tid, etc. returned by Cielo.
+     * @throws CieloRequestException if anything gets wrong.
+     * @see <a href=
+     *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
+     *      Codes</a>
+     */
+    public function reactivateRecurrentPayment($recurrentPaymentId)
+    {
+        $reactivateRecurrentPaymentRequest = new UpdateRecurrentPaymentRequest('Reactivate', $this->merchant, $this->environment);
+
+        return $reactivateRecurrentPaymentRequest->execute($recurrentPaymentId);
+    }
+
+    /**
+     * Change the day of a RecurrentPayment on Cielo
+     *
+     * @param $recurrentPaymentId
+     * @param int $recurrencyday
+     * @return mixed
+     */
+    public function changeDayRecurrentPayment($recurrentPaymentId, $recurrencyday)
+    {
+        $changeDayRecurrentPaymentRequest = new UpdateRecurrentPaymentRequest('RecurrencyDay', $this->merchant, $this->environment);
+
+        $changeDayRecurrentPaymentRequest->setContent($recurrencyday);
+
+        return $changeDayRecurrentPaymentRequest->execute($recurrentPaymentId);
+    }
+
+    /**
+     * Change the amount of a RecurrentPayment on Cielo
+     *
+     * @param $recurrentPaymentId
+     * @param int $amount
+     * @return mixed
+     */
+    public function changeAmountRecurrentPayment($recurrentPaymentId, $amount)
+    {
+        $changeAmountRecurrentPaymentRequest = new UpdateRecurrentPaymentRequest('Amount', $this->merchant, $this->environment);
+
+        $changeAmountRecurrentPaymentRequest->setContent($amount);
+
+        return $changeAmountRecurrentPaymentRequest->execute($recurrentPaymentId);
     }
 }
