@@ -176,4 +176,26 @@ class CieloEcommerce
 
         return $tokenizeCardRequest->execute($card);
     }
+
+     /**
+     * Validate credit or debit card data
+     *
+     * @param string $cardBin
+     *            First 6 digits of the payment card.
+     *   To simulate the request obtaining ForeignCard=false result, the third digit must be 1 and the fifth must not be 2 or 3.
+     *   Examples:001040, 501010, 401050
+     * 
+     * 
+     * @return json card info
+     * @throws CieloRequestException if anything gets wrong.
+     * @see <a href=
+     *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
+     *      Codes</a>
+     */
+    public function binChecker($cardBin)
+    {
+        $cieloBinRequest = new CieloBinRequest($this->merchant,$this->environment);        
+        
+        return $cieloBinRequest->execute($cardBin);
+    }
 }
