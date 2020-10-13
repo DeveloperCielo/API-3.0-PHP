@@ -204,6 +204,14 @@ class RecurrentPayment implements \JsonSerializable
     /**
      * @return mixed
      */
+    public function getRecurrentTransactions()
+    {
+        return $this->recurrentTransactions;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getStatus()
     {
         return $this->status;
