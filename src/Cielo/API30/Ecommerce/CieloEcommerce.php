@@ -155,6 +155,30 @@ class CieloEcommerce
     }
 
     /**
+     * Change interval of a RecurrentPayment on Cielo
+     *
+     * @param string $recurrentPaymentId
+     *            The RecurrentPaymentId to be changed
+     * 
+     * @param $interval
+     *            The new interval
+     *
+     * @return \Cielo\API30\Ecommerce\RecurrentPayment The RecurrentPayment with authorization, tid, etc. returned by Cielo.
+     * @throws CieloRequestException if anything gets wrong.
+     * @see <a href=
+     *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
+     *      Codes</a>
+     */
+    public function changeIntervalRecurrentPayment($recurrentPaymentId,$interval)
+    {
+        $changePaymentDataRecurrentPaymentRequest = new UpdateRecurrentPaymentRequest('Interval', $this->merchant, $this->environment);
+
+        $changePaymentDataRecurrentPaymentRequest->setContent($interval);
+
+        return $changePaymentDataRecurrentPaymentRequest->execute($recurrentPaymentId);
+    }
+
+    /**
      * Validate credit or debit card data
      *
      * @param string $cardBin
