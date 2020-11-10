@@ -33,7 +33,7 @@ class Sale implements \JsonSerializable
      */
     public static function fromJson($json)
     {
-        $object = json_decode($json);
+        $object = json_decode($json) ?: json_decode(gzdecode($json));
 
         $sale = new Sale();
         $sale->populate($object);

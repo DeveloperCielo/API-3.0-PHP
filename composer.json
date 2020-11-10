@@ -12,7 +12,8 @@
     "php": ">=5.6",
     "ext-curl": "*",
     "ext-json": "*",
-    "psr/log":"^1.1"
+    "psr/log":"^1.1",
+    "ext-zlib": "*"
   },
   "suggest": {
     "monolog/monolog": "Allows more advanced logging of the application flow"
