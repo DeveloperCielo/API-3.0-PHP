@@ -282,6 +282,9 @@ $payment->setType(Payment::PAYMENTTYPE_CREDITCARD)
 // Configure o pagamento recorrente
 $payment->recurrentPayment(true)->setInterval(RecurrentPayment::INTERVAL_MONTHLY);
 
+// Esse trecho é necessário para a recorrência prograda, em que a primeira captura tem q ser feita após a criação da recorrência
+$payment->setCapture(true);
+
 // Crie o pagamento na Cielo
 try {
     // Configure o SDK com seu merchant e o ambiente apropriado para criar a venda
