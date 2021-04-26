@@ -42,7 +42,7 @@ composer install
 Alternativamente, você pode executar diretamente em seu terminal:
 
 ```
-composer require "developercielo/api-3.0-php"
+composer require "arthurydalgo/api-3.0-php"
 ```
 
 ## Produtos e Bandeiras suportadas e suas constantes
