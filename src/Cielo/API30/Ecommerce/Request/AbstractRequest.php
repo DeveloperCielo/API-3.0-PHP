@@ -45,7 +45,7 @@ abstract class AbstractRequest
      * @throws \Cielo\API30\Ecommerce\Request\CieloRequestException
      * @throws \RuntimeException
      */
-    protected function sendRequest($method, $url, \JsonSerializable $content = null)
+    protected function sendRequest($method, $url, $content = null)
     {
         $headers = [
             'Accept: application/json',

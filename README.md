@@ -29,7 +29,7 @@ Se já possui um arquivo `composer.json`, basta adicionar a seguinte dependênci
 
 ```json
 "require": {
-    "developercielo/api-3.0-php": "^1.0"
+    "arthurydalgo/api-3.0-php": "^1.0"
 }
 ```
 
@@ -42,7 +42,7 @@ composer install
 Alternativamente, você pode executar diretamente em seu terminal:
 
 ```
-composer require "developercielo/api-3.0-php"
+composer require "arthurydalgo/api-3.0-php"
 ```
 
 ## Produtos e Bandeiras suportadas e suas constantes
@@ -281,6 +281,9 @@ $payment->setType(Payment::PAYMENTTYPE_CREDITCARD)
 
 // Configure o pagamento recorrente
 $payment->recurrentPayment(true)->setInterval(RecurrentPayment::INTERVAL_MONTHLY);
+
+// Esse trecho é necessário para a recorrência prograda, em que a primeira captura tem q ser feita após a criação da recorrência
+$payment->setCapture(true);
 
 // Crie o pagamento na Cielo
 try {
