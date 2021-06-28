@@ -134,7 +134,10 @@ abstract class AbstractRequest
             case 400:
                 $exception = null;
                 $response  = json_decode($responseBody);
-
+                $responseType = gettype($response);
+                if($responseType == 'string'){
+                    $response = $this->parametrizarSeString($response);
+                }
                 foreach ($response as $error) {
                     $cieloError = new CieloError($error->Message, $error->Code);
                     $exception  = new CieloRequestException('Request Error', $statusCode, $exception);
@@ -149,6 +152,19 @@ abstract class AbstractRequest
         }
 
         return $unserialized;
+    }
+
+    //Em alguns casos, o campo de responde com o código de erro pode vir no tipo string. Isso se torna um problema, pois pode exibir erro na hora de processar um forEach. Por esse motivo, acrescentei essa função que transforma string em objeto para que possa ser interado no foreach e evitar qualquer tipo de erro. 
+    protected function parametrizarSeString(String $string){
+        preg_match('/(\w{1,}):/',$string,$code);
+        preg_match('/:(\s[\w\'\.\s]{1,})/',$string,$message);
+        $obj = [
+            (object) [
+                'Code'      => $code[1],
+                'Message'   => $message[1]
+            ]
+        ];
+        return $obj;
     }
 
     /**
