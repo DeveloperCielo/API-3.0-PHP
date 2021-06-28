@@ -154,7 +154,7 @@ abstract class AbstractRequest
         return $unserialized;
     }
 
-    //Em alguns casos, o campo de responde com o código de erro pode vir no modo string. Isso se torna um problema, pois pode exibir erro na hora de processar um forEach. Por esse motivo, acrescentei essa função que transforma string em objeto para que possa ser interado no foreach e evitar qualquer tipo de erro. 
+    //Em alguns casos, o campo de responde com o código de erro pode vir no tipo string. Isso se torna um problema, pois pode exibir erro na hora de processar um forEach. Por esse motivo, acrescentei essa função que transforma string em objeto para que possa ser interado no foreach e evitar qualquer tipo de erro. 
     protected function parametrizarSeString(String $string){
         preg_match('/(\w{1,}):/',$string,$code);
         preg_match('/:(\s[\w\'\.\s]{1,})/',$string,$message);
